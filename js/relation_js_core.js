@@ -85,7 +85,7 @@
 			LINE: '_line',
 			ROOT : '_root_relation',
 			SETTING : '_setting_relation',
-			CACHE : '_cache_relation',
+			CACHE : '_cache_relation'
 		},
 		line : {
 			UNSELECTED_COLOR: 'green',
@@ -320,14 +320,14 @@
 		makeNodeLineToPage : function(src, target, obj) {
 			// 重新改造
 			var position = [], div = $("."+_consts.className.LINE, obj), line = $(
-					"[from='" + src['r_node'] + "'][to='" + target['r_node']
+					"[_from='" + src['r_node'] + "'][_to='" + target['r_node']
 							+ "']", div);
 			_view.makeNodeLinePosition(src, target, obj, position);
 			if (div.length < 1)
 				div = $("<div class='"+_consts.className.LINE+"'></div>").appendTo(obj);
 			_tools.drawLine(div[0], position, null, {
-				from : src['r_node'],
-				to : target['r_node']
+				_from : src['r_node'],
+				_to : target['r_node']
 			}, line);
 		},
 		makeNodeLinePosition : function(src, target, obj, position) {
@@ -370,9 +370,9 @@
 		removeNodeChilds : function(obj, node, own) {
 			var setting = _data.getSetting(obj), cache = _data.getCache(obj);
 			node = cache.nodes[node['r_node']], del = [];
-			$("[to='" + node['r_node'] + "']", obj).each(
+			$("[_to='" + node['r_node'] + "']", obj).each(
 					function() {
-						var domId = $(this).attr('from');
+						var domId = $(this).attr('_from');
 						var domFrom = cache.nodes[domId];
 						if (domFrom[setting.data.key.parent].length > 1) {
 							delete domFrom[setting.data.key.parent][_tools
@@ -387,16 +387,16 @@
 			if (own) {
 				delete cache.nodes[node['r_node']];
 				$(
-						"[r_node='" + node['r_node'] + "'],[from='"
+						"[r_node='" + node['r_node'] + "'],[_from='"
 								+ node['r_node'] + "']", obj).remove();
 			}
 		},
 		resizeLinePosition : function(obj) {
-			var lines = $("[to][from]", obj),
+			var lines = $("[_to][_from]", obj),
 				nodes = _data.getCache(obj).nodes;
 			lines.each(function() {
-				var to = nodes[$(this).attr('to')], from = nodes[$(this).attr(
-						'from')];
+				var to = nodes[$(this).attr('_to')], from = nodes[$(this).attr(
+						'_from')];
 				_view.makeNodeLineToPage(from, to, obj);
 			});
 		},
@@ -618,11 +618,11 @@
 		},
 		getNodeLine: function(obj, rid, all){
 			if(all)
-				return $("[to='"+rid+"'],[from='"+rid+"']", obj);
+				return $("[_to='"+rid+"'],[_from='"+rid+"']", obj);
 			else
 				return {
-					to : $("[to='"+rid+"']", obj),
-					from : $("[from='"+rid+"']", obj) 
+					to : $("[_to='"+rid+"']", obj),
+					from : $("[_from='"+rid+"']", obj) 
 				}
 		},
 		getNodesByParam: function(key,value,nodes,fuzzy,rids){
@@ -869,7 +869,6 @@
 			}
 		},
 		drawLine : function(obj, position, color, attributes, line) {
-			//TODO VML兼容未解决
 			var __SVG = false,__svgNS = false,polyline = line,
 				__svg = $("svg["+_consts.id.LINE+"]",obj),lineExist = false;
 			if (document.createElementNS) {
@@ -877,7 +876,6 @@
 			    if (__svg.length < 1) {
 					__svg = document.createElementNS(__svgNS, "svg");
 					__svg.setAttributeNS(null, _consts.id.LINE, '');
-					__svg.style.position = "absolute";
 					__svg.style.width = "100%";
 					__svg.style.height = "100%";
 					obj.appendChild(__svg);
@@ -894,7 +892,7 @@
 			}else{
 				 document.namespaces.add("v", "urn:schemas-microsoft-com:vml");
 		         var style = document.createStyleSheet();
-				 style.addRule("v\\:polyline ","behavior: url(#default#VML);");
+				 style.addRule("v\\:polyline ","behavior: url(#default#VML);position:absolute;");
 				 if (polyline.length < 1) {
 						polyline = document.createElement("v:polyline");
 				 } else {
@@ -913,14 +911,16 @@
 					if(!lineExist)
 						__svg.appendChild(polyline);
 				} else if (document.createStyleSheet) {
-					polyline.setAttribute("points", position.join(' '));
 					polyline.setAttribute(_consts.id.LINE,'');
+					polyline.filled = false;
 					polyline.strokecolor = color || _consts.line.UNSELECTED_COLOR;
 					if (attributes)
 						for ( var k in attributes)
 							polyline.setAttribute(k,attributes[k]);
-					if(!lineExist)
+					if(!lineExist){
 						obj.appendChild(polyline);
+						polyline.points.value = position.join(' ');
+					}
 				} 
 		},
 		computedDomRange : function(sDom, pDom) {

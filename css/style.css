@@ -43,11 +43,11 @@ email:		luohaiyun@outlook.com
 }
 
 .relation li a {
-	padding: 1px 3px 0 0;
+	padding: 1px 1px 0 0;
 	margin: 0;
 	cursor: pointer;
-	height: 70px;
-	width: 70px;
+	height: 100%;
+	width: 100%;
 	color: #333;
 	background-color: transparent;
 	text-decoration: none;
