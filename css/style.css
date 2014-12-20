@@ -1,0 +1,89 @@
+/*-----------------------
+
+relation Style
+
+version:	1.0
+author:		luohaiyun
+email:		luohaiyun@outlook.com
+
+--------------------------*/
+.relation {
+	white-space:nowrap;
+	clear: none;
+	width: 10000px;
+	height: 100%;
+}
+.relation * {
+	padding: 0;
+	margin: 0 auto;
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, AppleGothic, sans-serif;
+}
+.relation ul {
+	list-style: none;
+	margin: 0 auto;
+	overflow: hidden;
+	float: left;
+	width: 200px;
+}
+
+.relation ul li {
+	border: 1px double yellow;
+	list-style: none;
+	width: 80px;
+	background: #39AB3E;
+	float: none;
+	height: 80px;
+	font-weight: bolder;
+	color: #FFF;
+	font-size: 24px;
+	text-align: center;
+	margin: 10px;
+	line-height: 100px
+}
+
+.relation li a {
+	padding: 1px 3px 0 0;
+	margin: 0;
+	cursor: pointer;
+	height: 70px;
+	width: 70px;
+	color: #333;
+	background-color: transparent;
+	text-decoration: none;
+	vertical-align: top;
+	display: inline-block;
+	overflow: hidden;
+}
+
+.relation li:hover {
+	text-decoration: underline;
+	border: 1px solid rgb(54, 33, 104);
+}
+
+.relation .line {
+	position:absolute;
+	width: 10000px;	
+	height: 100%;
+	overflow:hidden;
+	z-index: -1;
+}
+
+.relation ul .selected {
+	border-color: #0080ff
+}
+
+.relation ul li span.button {
+	line-height: 0;
+	margin: 0;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	vertical-align: middle;
+	border: 0 none;
+	cursor: pointer;
+	outline: none;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+}
