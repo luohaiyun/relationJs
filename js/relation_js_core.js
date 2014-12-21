@@ -300,7 +300,6 @@
 			if (ul.length > 0)
 				return ul;
 			return $("<ul level='" + level + "'></ul>").appendTo(obj);
-			// add switch button
 		},
 		makeNodesLineToPage : function(event, obj) {
 			var me = $(obj), setting = _data.getSetting(obj), caches = _data
@@ -318,7 +317,6 @@
 			}
 		},
 		makeNodeLineToPage : function(src, target, obj) {
-			// 重新改造
 			var position = [], div = $("."+_consts.className.LINE, obj), line = $(
 					"[_from='" + src['r_node'] + "'][_to='" + target['r_node']
 							+ "']", div);
@@ -337,7 +335,6 @@
 			var parentIds = $.isArray(src[setting.data.key.parent]) ? src[setting.data.key.parent]
 					: [ src[setting.data.key.parent] ];
 			var parentDom = sDom.parent(),level = parentDom.attr('level');
-			//TODO有问题   这个方式也不行
 			var prevDom = parentDom.siblings(
 					"ul[level='" + (level.substring(0,level.lastIndexOf("_")) - 1) + _consts.id.UL + "']");
 			var parentDom;
