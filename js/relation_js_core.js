@@ -1181,17 +1181,21 @@
 		getOptions : function(obj) {
 			var root = _data.getRoot(obj[0]);
 			var setting = _data.getSetting(obj[0]);
-			return {
-				setting : setting,
-				root : root,
-				view : _view,
-				tools : _tools,
-				data : _data,
-				event : _event
-			}
+			return $.extend({}, $.fn.relationJs.extend.coreobj,{root: root,setting: setting});
 		},
 		destroy : function(obj) {
-			view.destroy(obj[0]);
+			_view.destroy(obj[0]);
 		}
 	};
+	
+	$.fn.relationJs.extend = {
+		consts: _consts,
+		coreobj: {
+			view : _view,
+			tools : _tools,
+			data : _data,
+			event : _event
+		}
+	}
+	
 })(jQuery);
