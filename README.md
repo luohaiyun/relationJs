@@ -1,2 +1,1 @@
-
-Wait for the introduction~
+![image](https://github.com/luohaiyun/relationJs/blob/master/demo/image/demo.png)
